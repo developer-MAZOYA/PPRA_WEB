@@ -1,0 +1,155 @@
+<div class="translation-root" appTranslate>
+@if (auth.isAuthenticated()) {
+  <div class="app-layout" [class.sidebar-collapsed]="!sidebarOpen()" [class.dark]="theme.dark()">
+
+    <!-- ═══════════ TOP BAR ═══════════ -->
+    <header class="top-bar">
+      <div class="top-left">
+        <button mat-icon-button class="menu-toggle"
+                (click)="toggleSidebar()" aria-label="Toggle menu">
+          <mat-icon>menu</mat-icon>
+        </button>
+        <img src="/logo-ppra.png" alt="PPRA" class="top-logo" />
+        <span class="top-brand">| AMS</span>
+      </div>
+
+      <div class="top-right">
+        <div class="language-toggle" role="group" aria-label="Language">
+          <button type="button" [class.active]="language.language() === 'en'"
+                  [attr.aria-pressed]="language.language() === 'en'" (click)="setLanguage('en')">EN</button>
+          <button type="button" [class.active]="language.language() === 'sw'"
+                  [attr.aria-pressed]="language.language() === 'sw'" (click)="setLanguage('sw')">SW</button>
+        </div>
+        <button type="button" class="theme-toggle"
+                (click)="theme.toggle()"
+                [attr.aria-label]="theme.dark() ? 'Switch to light mode' : 'Switch to dark mode'"
+                [attr.title]="theme.dark() ? 'Light mode' : 'Dark mode'">
+          <mat-icon>{{ theme.dark() ? 'light_mode' : 'dark_mode' }}</mat-icon>
+        </button>
+
+        <button mat-icon-button class="icon-btn hide-on-mobile" aria-label="Notifications">
+          <mat-icon>notifications_none</mat-icon>
+        </button>
+
+        <button class="user-chip" [matMenuTriggerFor]="userMenu">
+          <div class="user-avatar">{{ initials() }}</div>
+          <div class="user-info hide-on-mobile">
+            <span class="user-name">{{ auth.currentUser()?.fullName }}</span>
+            <span class="user-role">{{ auth.currentUser()?.role }}</span>
+          </div>
+          <mat-icon class="hide-on-mobile">expand_more</mat-icon>
+        </button>
+
+        <mat-menu #userMenu="matMenu" xPosition="before">
+          <div class="menu-header">
+            <strong>{{ auth.currentUser()?.fullName }}</strong>
+            <small>{{ auth.currentUser()?.email }}</small>
+          </div>
+          <button mat-menu-item>
+            <mat-icon>person_outline</mat-icon>
+            <span>My Profile</span>
+          </button>
+          <mat-divider></mat-divider>
+          <button mat-menu-item (click)="logout()">
+            <mat-icon>logout</mat-icon>
+            <span>Logout</span>
+          </button>
+        </mat-menu>
+      </div>
+    </header>
+
+    <!-- ═══════════ SIDEBAR ═══════════ -->
+    <aside class="sidebar">
+
+      <!-- Brand -->
+      <div class="side-brand">
+        <img src="/emblem.png" alt="PPRA Emblem" class="side-emblem" />
+        <div class="side-brand-text">
+          <span class="side-brand-title">PPRA</span>
+          <span class="side-brand-sub">Asset Management</span>
+        </div>
+      </div>
+
+      <nav class="side-nav">
+
+        <!-- Dashboard (everyone) -->
+        <a class="side-item"
+           routerLink="/dashboard"
+           routerLinkActive="active"
+           (click)="closeSidebarOnMobile()">
+          <mat-icon>space_dashboard</mat-icon>
+          <span>Dashboard</span>
+        </a>
+
+        <!-- My Assets (everyone, including admin) -->
+        <a class="side-item"
+           routerLink="/my-assets"
+           routerLinkActive="active"
+           (click)="closeSidebarOnMobile()">
+          <mat-icon>assignment_ind</mat-icon>
+          <span>My Assets</span>
+        </a>
+
+        <!-- Admin-only section -->
+        @if (auth.isAdmin()) {
+          <mat-divider class="side-divider"></mat-divider>
+
+          <a class="side-item"
+             routerLink="/assets"
+             routerLinkActive="active"
+             (click)="closeSidebarOnMobile()">
+            <mat-icon>inventory_2</mat-icon>
+            <span>All Assets</span>
+          </a>
+
+          <a class="side-item"
+             routerLink="/assets/new"
+             routerLinkActive="active"
+             (click)="closeSidebarOnMobile()">
+            <mat-icon>add_circle_outline</mat-icon>
+            <span>New Asset</span>
+          </a>
+
+          <a class="side-item"
+             routerLink="/users"
+             routerLinkActive="active"
+             (click)="closeSidebarOnMobile()">
+            <mat-icon>group</mat-icon>
+            <span>Users</span>
+          </a>
+        }
+
+        <!-- Settings -->
+        <mat-divider class="side-divider"></mat-divider>
+
+        <a class="side-item"
+           routerLink="/profile"
+           routerLinkActive="active"
+           (click)="closeSidebarOnMobile()">
+          <mat-icon>settings</mat-icon>
+          <span>Settings</span>
+        </a>
+
+      </nav>
+
+      <div class="side-footer">
+        <span>© 2026 PPRA</span>
+      </div>
+    </aside>
+
+    <!-- ═══════════ MAIN CONTENT ═══════════ -->
+    <main class="main-area">
+      <router-outlet />
+    </main>
+
+    <!-- ═══════════ AI CHAT WIDGET (admin only) ═══════════ -->
+    @if (auth.isAdmin()) {
+      <app-chat-widget></app-chat-widget>
+    }
+
+    <div class="mobile-overlay" (click)="closeSidebarOnMobile()"></div>
+  </div>
+} @else {
+  <router-outlet />
+}
+</div>

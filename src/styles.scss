@@ -1,0 +1,600 @@
+@use '@angular/material' as mat;
+
+/* ═══════════════════════════════════════════
+   GLOBAL THEME
+   ═══════════════════════════════════════════ */
+html {
+  height: 100%;
+  @include mat.theme((
+    color: (
+      primary: (
+        0:   #000000,
+        10:  #001F3F,
+        20:  #003A70,
+        30:  #005593,
+        40:  #0066CC,
+        50:  #1E5BAA,
+        60:  #4285D6,
+        70:  #6FA8E5,
+        80:  #A5CBF2,
+        90:  #D6E7F8,
+        95:  #ECF4FB,
+        99:  #F8FBFF,
+        100: #FFFFFF,
+      ),
+      tertiary: (
+        0:   #000000,
+        10:  #2A1E00,
+        20:  #463400,
+        30:  #654B00,
+        40:  #855F00,
+        50:  #A67700,
+        60:  #C89000,
+        70:  #ECAA00,
+        80:  #FDB913,
+        90:  #FFDF95,
+        95:  #FFEFD1,
+        99:  #FFFBF0,
+        100: #FFFFFF,
+      ),
+    ),
+    typography: Roboto,
+    density: 0,
+  ));
+}
+
+body {
+  color-scheme: light;
+  background-color: #FFFFFF;
+  color: #1F2937;
+  font: var(--mat-sys-body-medium);
+  font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  margin: 0;
+  height: 100%;
+}
+
+* { box-sizing: border-box; }
+
+/* ══════════════════════════════════════════════════
+   GLOBAL DARK MODE (applies to layout elements)
+   ══════════════════════════════════════════════════ */
+html.ppra-dark {
+  .app-layout { background: #15100A; }
+
+  /* Top bar */
+  .top-bar {
+    background: #1A130D;
+    border-bottom-color: rgba(253, 185, 19, 0.15);
+  }
+  .top-brand { color: #FBF6EC; }
+  .user-info .user-name { color: #FBF6EC; }
+  .user-info .user-role { color: #8A7A62; }
+
+  .menu-toggle,
+  .icon-btn,
+  .user-chip mat-icon { color: #B8A382; }
+
+  .menu-toggle:hover,
+  .icon-btn:hover {
+    background: rgba(253, 185, 19, 0.12);
+    color: #FDB913;
+  }
+
+  .user-chip {
+    background: #221709;
+    border-color: rgba(253, 185, 19, 0.2);
+  }
+  .user-chip:hover {
+    background: #2A1A0F;
+    border-color: rgba(253, 185, 19, 0.45);
+  }
+  .user-avatar {
+    background: rgba(253, 185, 19, 0.2);
+    color: #FDB913;
+  }
+
+  /* Sidebar */
+  .sidebar {
+    background: linear-gradient(180deg, #221709 0%, #1A130D 100%);
+    border-right-color: rgba(253, 185, 19, 0.15);
+  }
+  .sidebar::before {
+    background: linear-gradient(
+      135deg,
+      rgba(253, 185, 19, 0.06) 0%,
+      transparent 40%
+    );
+  }
+  .side-brand {
+    border-bottom-color: rgba(253, 185, 19, 0.15);
+    background: linear-gradient(
+      180deg,
+      rgba(253, 185, 19, 0.06),
+      rgba(253, 185, 19, 0.02)
+    );
+  }
+  .side-brand-title { color: #FDB913; }
+  .side-brand-sub { color: #B8A382; }
+
+  .side-item,
+  .side-item mat-icon { color: #B8A382; }
+  .side-item::before {
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(253, 185, 19, 0.15),
+      transparent
+    );
+  }
+  .side-item:hover {
+    background: rgba(253, 185, 19, 0.08);
+    color: #FDB913;
+  }
+  .side-item:hover mat-icon { color: #FDB913; }
+  .side-item.active {
+    background: rgba(253, 185, 19, 0.12);
+    color: #FDB913;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  }
+  .side-item.active mat-icon { color: #FDB913; }
+  .side-item.active::after { background: #FDB913; }
+  .side-divider {
+    border-top-color: rgba(253, 185, 19, 0.15) !important;
+  }
+  .side-footer {
+    color: #8A7A62;
+    border-top-color: rgba(253, 185, 19, 0.15);
+  }
+
+  /* Main area */
+  .main-area { background: #15100A; }
+
+  /* Mobile overlay */
+  .mobile-overlay { background: rgba(0, 0, 0, 0.6); }
+}
+
+/* ═══════════════════════════════════════════
+   PAGE LAYOUT
+   ═══════════════════════════════════════════ */
+.page {
+  padding: 24px;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .page { padding: 32px 40px; }
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #E5E7EB;
+
+  h1 {
+    margin: 0;
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #1F2937;
+    letter-spacing: -0.02em;
+  }
+
+  .subtitle {
+    margin: 4px 0 0;
+    color: #6B7280;
+    font-size: 0.9rem;
+  }
+}
+
+/* ═══════════════════════════════════════════
+   BUTTONS
+   ═══════════════════════════════════════════ */
+.btn-primary-green {
+  background: #4CAF50 !important;
+  color: white !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.3px !important;
+  border-radius: 6px !important;
+  padding: 0 24px !important;
+  height: 44px !important;
+
+  &:hover {
+    background: #43A047 !important;
+  }
+}
+
+/* ═══════════════════════════════════════════
+   CARDS
+   ═══════════════════════════════════════════ */
+.clean-card {
+  background: white;
+  border: 1px solid #E5E7EB;
+  border-radius: 12px;
+  padding: 24px;
+  transition: box-shadow 0.2s, border-color 0.2s;
+
+  &:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  }
+}
+
+/* ═══════════════════════════════════════════
+   STATUS CHIPS
+   ═══════════════════════════════════════════ */
+.chip {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+}
+.status-available         { background: #DCFCE7; color: #15803D; }
+.status-assigned          { background: #DBEAFE; color: #1D4ED8; }
+.status-under_maintenance { background: #FEF3C7; color: #92400E; }
+.status-retired           { background: #E5E7EB; color: #4B5563; }
+.status-lost              { background: #FEE2E2; color: #B91C1C; }
+
+/* ═══════════════════════════════════════════
+   AUTH PAGES
+   ═══════════════════════════════════════════ */
+.auth-page {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  background: #F8F9FA;
+  padding: 20px;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 440px;
+  background: white;
+  border: 1px solid #E5E7EB;
+  border-radius: 12px;
+  padding: 32px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.auth-logo {
+  display: block;
+  max-width: 180px;
+  height: 48px;
+  object-fit: contain;
+  margin: 0 auto 24px;
+}
+
+/* ═══════════════════════════════════════════
+   SNACKBAR VARIANTS
+   ═══════════════════════════════════════════ */
+.snack-success {
+  --mdc-snackbar-container-color: #009639;
+  --mdc-snackbar-supporting-text-color: white;
+  --mat-snack-bar-button-color: white;
+}
+.snack-error {
+  --mdc-snackbar-container-color: #c62828;
+  --mdc-snackbar-supporting-text-color: white;
+  --mat-snack-bar-button-color: white;
+}
+
+/* ═══════════════════════════════════════════
+   FORM CURSORS — BLACK TEXT CURSOR
+   ═══════════════════════════════════════════ */
+input,
+textarea,
+select,
+.mat-mdc-input-element,
+.mat-mdc-select-value,
+.mat-mdc-form-field-input-control,
+input[matInput],
+textarea[matInput] {
+  caret-color: #000000 !important;
+  color: #1F2937;
+}
+
+input:focus,
+textarea:focus,
+.mat-mdc-input-element:focus,
+.mat-mdc-form-field.mat-focused .mat-mdc-input-element {
+  caret-color: #000000 !important;
+}
+
+.mat-mdc-select {
+  caret-color: #000000 !important;
+}
+
+/* Prevent browser autofill from overriding */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus {
+  -webkit-text-fill-color: #1F2937;
+  transition: background-color 5000s ease-in-out 0s;
+  caret-color: #000000 !important;
+}
+
+/* ═══════════════════════════════════════════
+   MATERIAL FORM FIELD — YELLOW ACCENT
+   ═══════════════════════════════════════════ */
+.mat-mdc-form-field.mat-focused {
+  .mat-mdc-floating-label {
+    color: #B8860B !important;
+  }
+
+  .mdc-notched-outline__leading,
+  .mdc-notched-outline__notch,
+  .mdc-notched-outline__trailing {
+    border-color: #D4A017 !important;
+    border-width: 2px !important;
+  }
+}
+
+/* ═══════════════════════════════════════════
+   MATERIAL DIALOG — SOLID BACKDROP + SOLID CARD
+   ═══════════════════════════════════════════ */
+
+/* 1) Solid white dialog card — no transparency */
+.mat-mdc-dialog-container .mdc-dialog__surface {
+  background-color: #FFFFFF !important;
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.04),
+    0 12px 40px rgba(0, 0, 0, 0.15) !important;
+  border-radius: 12px !important;
+  border: 1px solid #F0F2F5;
+  overflow: hidden;
+  opacity: 1 !important;
+}
+
+/* 2) Solid dark backdrop — no transparency */
+.cdk-overlay-backdrop.cdk-overlay-dark-backdrop {
+  background: rgba(31, 41, 55, 0.55) !important;
+}
+
+/* 3) Ensure backdrop is fully opaque when shown */
+.cdk-overlay-backdrop-showing {
+  opacity: 1 !important;
+}
+
+/* 4) Overlay sits above everything else */
+.cdk-overlay-container {
+  z-index: 1000 !important;
+}
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE UTILITIES
+   ═══════════════════════════════════════════ */
+.hide-on-mobile {
+  @media (max-width: 767px) { display: none !important; }
+}
+.hide-on-desktop {
+  @media (min-width: 768px) { display: none !important; }
+}
+
+@media (max-width: 767px) {
+  table.mat-mdc-table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+}
+
+/* ══════════════════════════════════════════════════
+   AUTHENTICATED PAGES — COHESIVE DARK SURFACES
+   ══════════════════════════════════════════════════ */
+html.ppra-dark .main-area {
+  background:
+    radial-gradient(ellipse at 92% 0%, rgba(61, 120, 168, .11), transparent 34%),
+    #111c2c !important;
+}
+
+html.ppra-dark .main-area app-asset-list .page-header h1,
+html.ppra-dark .main-area app-user-list .page-header h1,
+html.ppra-dark .main-area app-my-assets .page-header h1,
+html.ppra-dark .main-area app-asset-form .hero-text h1,
+html.ppra-dark .main-area app-asset-draft-page .page-header h1,
+html.ppra-dark .main-area app-profile h1,
+html.ppra-dark .main-area app-profile h2 {
+  color: #f1f5fa !important;
+}
+
+html.ppra-dark .main-area app-asset-list .subtitle,
+html.ppra-dark .main-area app-user-list .subtitle,
+html.ppra-dark .main-area app-my-assets .subtitle,
+html.ppra-dark .main-area app-asset-form .subtitle,
+html.ppra-dark .main-area app-asset-draft-page .subtitle,
+html.ppra-dark .main-area app-profile .subtitle,
+html.ppra-dark .main-area app-profile p {
+  color: #aab9ca !important;
+}
+
+html.ppra-dark .main-area app-asset-list .search-field,
+html.ppra-dark .main-area app-user-list .search-field {
+  --mdc-outlined-text-field-input-text-color: #e8eef5;
+  --mdc-outlined-text-field-label-text-color: #aab9ca;
+  --mdc-outlined-text-field-outline-color: rgba(191, 210, 230, .24);
+  --mdc-outlined-text-field-hover-outline-color: rgba(244, 189, 69, .55);
+  --mdc-outlined-text-field-focus-outline-color: #f4bd45;
+}
+
+html.ppra-dark .main-area app-asset-list .table-wrap,
+html.ppra-dark .main-area app-user-list .table-wrap {
+  background: #18273a;
+  border-color: rgba(210, 226, 242, .1);
+  border-radius: 16px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, .15);
+}
+
+html.ppra-dark .main-area app-asset-list .mat-mdc-table,
+html.ppra-dark .main-area app-user-list .mat-mdc-table {
+  --mat-table-background-color: #18273a;
+  --mat-table-row-item-label-text-color: #e3ebf4;
+  --mat-table-header-headline-color: #b7c7d8;
+  background: #18273a;
+}
+
+html.ppra-dark .main-area app-asset-list .mat-mdc-header-row,
+html.ppra-dark .main-area app-user-list .mat-mdc-header-row {
+  background: #1e3046 !important;
+}
+
+html.ppra-dark .main-area app-asset-list .mat-mdc-row,
+html.ppra-dark .main-area app-user-list .mat-mdc-row {
+  background: #18273a;
+  border-bottom-color: rgba(210, 226, 242, .1);
+}
+
+html.ppra-dark .main-area app-asset-list .mat-mdc-cell,
+html.ppra-dark .main-area app-user-list .mat-mdc-cell,
+html.ppra-dark .main-area app-asset-list .mat-mdc-header-cell,
+html.ppra-dark .main-area app-user-list .mat-mdc-header-cell {
+  color: #e3ebf4 !important;
+  border-bottom-color: rgba(210, 226, 242, .12);
+}
+
+html.ppra-dark .main-area app-asset-list .description-cell,
+html.ppra-dark .main-area app-user-list .user-email { color: #aab9ca !important; }
+
+html.ppra-dark .main-area app-asset-list .mat-mdc-row:hover,
+html.ppra-dark .main-area app-user-list .mat-mdc-row:hover {
+  background: #21364d !important;
+}
+
+html.ppra-dark .main-area app-my-assets .asset-card,
+html.ppra-dark .main-area app-my-assets .empty,
+html.ppra-dark .main-area app-asset-form .section-card,
+html.ppra-dark .main-area app-asset-form .action-bar,
+html.ppra-dark .main-area app-asset-draft-page .draft-card,
+html.ppra-dark .main-area app-profile .info-card,
+html.ppra-dark .main-area app-profile .password-card {
+  background: #18273a !important;
+  border-color: rgba(210, 226, 242, .12) !important;
+  color: #e8eef5 !important;
+  box-shadow: 0 12px 30px rgba(0,0,0,.12) !important;
+}
+
+html.ppra-dark .main-area app-my-assets .mat-mdc-card-title,
+html.ppra-dark .main-area app-my-assets .mat-mdc-card-subtitle,
+html.ppra-dark .main-area app-my-assets .value,
+html.ppra-dark .main-area app-my-assets .section-title,
+html.ppra-dark .main-area app-my-assets .mat-expansion-panel-header,
+html.ppra-dark .main-area app-my-assets .mat-expansion-panel-body,
+html.ppra-dark .main-area app-profile .info-card h2,
+html.ppra-dark .main-area app-profile .password-card h2,
+html.ppra-dark .main-area app-profile .avatar-name,
+html.ppra-dark .main-area app-profile .row-value {
+  color: #e8eef5 !important;
+}
+
+html.ppra-dark .main-area app-my-assets .label,
+html.ppra-dark .main-area app-my-assets .notes p,
+html.ppra-dark .main-area app-asset-form .action-hint,
+html.ppra-dark .main-area app-asset-form .section-text p,
+html.ppra-dark .main-area app-profile .row-label,
+html.ppra-dark .main-area app-profile .header-text p {
+  color: #aab9ca !important;
+}
+
+html.ppra-dark .main-area app-my-assets .mat-expansion-panel {
+  background: #18273a !important;
+  border-color: rgba(210, 226, 242, .12) !important;
+}
+
+html.ppra-dark .main-area app-asset-form .section-header {
+  background: linear-gradient(110deg, #21354b, #1b2c40) !important;
+  border-bottom-color: rgba(210, 226, 242, .1) !important;
+}
+html.ppra-dark .main-area app-asset-form .section-text h2 { color: #f0f5fa !important; }
+html.ppra-dark .main-area app-asset-form .hero-badge { color: #17243a; }
+html.ppra-dark .main-area app-asset-form .mat-mdc-form-field {
+  --mdc-outlined-text-field-input-text-color: #edf3f9;
+  --mdc-outlined-text-field-label-text-color: #aab9ca;
+  --mdc-outlined-text-field-outline-color: rgba(191, 210, 230, .24);
+  --mdc-outlined-text-field-hover-outline-color: rgba(244, 189, 69, .55);
+  --mdc-outlined-text-field-focus-outline-color: #f4bd45;
+}
+html.ppra-dark .main-area app-asset-form .mat-mdc-input-element,
+html.ppra-dark .main-area app-asset-form .mat-mdc-select-value,
+html.ppra-dark .main-area app-asset-form .mat-mdc-select-arrow { color: #edf3f9 !important; }
+html.ppra-dark .main-area app-asset-form .ai-panel { background: #252841; border-color: rgba(165, 180, 252, .22); }
+html.ppra-dark .main-area app-asset-form .ai-text strong { color: #e2e5ff; }
+html.ppra-dark .main-area app-asset-form .ai-text small { color: #b6b8ed; }
+html.ppra-dark .main-area app-asset-form .ai-body { background: rgba(14, 22, 39, .35); }
+html.ppra-dark .main-area app-profile .card-header {
+  background: linear-gradient(110deg, #21354b, #1b2c40) !important;
+  border-bottom-color: rgba(210,226,242,.1) !important;
+}
+html.ppra-dark .main-area app-profile .mat-mdc-form-field {
+  --mdc-outlined-text-field-input-text-color: #edf3f9;
+  --mdc-outlined-text-field-label-text-color: #aab9ca;
+  --mdc-outlined-text-field-outline-color: rgba(191, 210, 230, .24);
+  --mdc-outlined-text-field-focus-outline-color: #f4bd45;
+}
+html.ppra-dark .main-area app-profile .mat-mdc-input-element { color: #edf3f9 !important; }
+
+html.ppra-dark .main-area input,
+html.ppra-dark .main-area textarea,
+html.ppra-dark .main-area select,
+html.ppra-dark .main-area .mat-mdc-input-element,
+html.ppra-dark .main-area .mat-mdc-select-value,
+html.ppra-dark .main-area .mat-mdc-select-arrow {
+  color: #edf3f9 !important;
+  caret-color: #f4bd45 !important;
+}
+html.ppra-dark .main-area input::placeholder,
+html.ppra-dark .main-area textarea::placeholder { color: #8fa2b7 !important; opacity: 1; }
+html.ppra-dark input:-webkit-autofill,
+html.ppra-dark input:-webkit-autofill:hover,
+html.ppra-dark input:-webkit-autofill:focus,
+html.ppra-dark textarea:-webkit-autofill,
+html.ppra-dark textarea:-webkit-autofill:hover,
+html.ppra-dark textarea:-webkit-autofill:focus {
+  -webkit-text-fill-color: #edf3f9 !important;
+}
+
+html.ppra-dark .main-area app-user-list .empty-state,
+html.ppra-dark .main-area app-asset-list .empty-state {
+  background: #18273a;
+  border-color: rgba(210, 226, 242, .12);
+}
+html.ppra-dark .main-area app-user-list .empty-state p,
+html.ppra-dark .main-area app-asset-list .empty-state p { color: #b7c7d8 !important; }
+
+html.ppra-dark .main-area app-user-list .page,
+html.ppra-dark .main-area app-asset-list .page,
+html.ppra-dark .main-area app-my-assets .page,
+html.ppra-dark .main-area app-asset-form .page,
+html.ppra-dark .main-area app-asset-draft-page .page,
+html.ppra-dark .main-area app-profile .page {
+  color: #e8eef5;
+}
+
+.main-area app-asset-list .page,
+.main-area app-user-list .page,
+.main-area app-my-assets .page,
+.main-area app-asset-form .page,
+.main-area app-asset-draft-page .page,
+.main-area app-profile .page {
+  width: 100%;
+  padding: clamp(20px, 3vw, 40px) clamp(18px, 3vw, 44px);
+}
+
+@media (max-width: 767px) {
+  .main-area app-asset-list .page,
+  .main-area app-user-list .page,
+  .main-area app-my-assets .page,
+  .main-area app-asset-form .page,
+  .main-area app-asset-draft-page .page,
+  .main-area app-profile .page {
+    padding: 20px 16px;
+  }
+}
