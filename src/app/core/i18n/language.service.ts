@@ -131,11 +131,13 @@ const EN_TO_SW: Record<string, string> = {
   'Procurement Boards': 'Bodi za Ununuzi', 'Procurement Authorities': 'Mamlaka za Ununuzi', 'Procurement Agencies': 'Wakala wa Ununuzi',
   'Procurement Departments': 'Idara za Ununuzi', 'Procurement Divisions': 'Vigawanyo vya Ununuzi',
   'Procurement Units': 'Vigawanyo vya Ununuzi', 'Procurement Sections': 'Sehemu za Ununuzi', 'Procurement Branches': 'Tawi la Ununuzi',
-  'Procurement Offices': 'Ofisi za Ununuzi', 'Procurement Centers': 'Kituo cha Ununuzi', 'Procurement Hubs': 'Kituo cha Ununuzi', 'Procurement Networks': 'Mitandao ya Ununuzi', 'Procurement Platforms': 'Majukwaa ya Ununuzi', 'Procurement Systems': 'Mifumo ya Ununuzi',
+  'Procurement Offices': 'Ofisi za Ununuzi', 'Procurement Centers': 'Kituo cha Ununuzi', 'Procurement Hubs': 'Kituo cha Ununuzi', 'Procurement Networks': 'Mitandao ya Ununuzi', 
+  'Procurement Platforms': 'Majukwaa ya Ununuzi', 'Procurement Systems': 'Mifumo ya Ununuzi',
   'Procurement Solutions': 'Suluhisho za Ununuzi', 'Procurement Services': 'Huduma za Ununuzi', 'Procurement Support': 'Msaada wa Ununuzi',
   'Procurement Assistance': 'Msaada wa Ununuzi', 'Procurement Guidance': 'Mwongozo wa Ununuzi', 'Procurement Advice': 'Ushauri wa Ununuzi',
   'Procurement Consultation': 'Ushauri wa Ununuzi', 'Procurement Counseling': 'Ushauri wa Ununuzi', 'Procurement Mentoring': 'Ushauri wa Ununuzi',
-  'Procurement Coaching': 'Ushauri wa Ununuzi', 'Procurement Tutoring': 'Ushauri wa Ununuzi', 'Procurement Training Programs': 'Programu za Mafunzo ya Ununuzi', 'Procurement Workshops and Seminars': 'Warsha na Semina za Ununuzi',
+  'Procurement Coaching': 'Ushauri wa Ununuzi', 'Procurement Tutoring': 'Ushauri wa Ununuzi', 'Procurement Training Programs': 'Programu za Mafunzo ya Ununuzi',
+   'Procurement Workshops and Seminars': 'Warsha na Semina za Ununuzi',
   'Procurement Conferences and Forums': 'Mikutano na Majukwaa ya Ununuzi', 'Procurement Discussions and Debates': 'Majadiliano na Mijadala ya Ununuzi',
   'Procurement Panels and Committees': 'Paneli na Kamati za Ununuzi', 'Procurement Councils and Boards': 'Baraza na Bodi za Ununuzi',
   'Procurement Authorities and Agencies': 'Mamlaka na Wakala wa Ununuzi', 'Procurement Departments and Divisions': 'Idara na Vigawanyo vya Ununuzi',
@@ -158,11 +160,16 @@ const EN_TO_SW: Record<string, string> = {
   'Your Email': 'Barua Pepe Yako', 'Your Message': 'Ujumbe Wako', 'Send Message': 'Tuma Ujumbe', 'Thank you for contacting us!': 'Asante kwa kuwasiliana nasi!',
   'We will get back to you shortly.': 'Tutakujibu hivi karibuni.', 'Follow Us': 'Tufuate', 'Subscribe to our newsletter': 'Jisajili kwa jarida letu',
   'Enter your email address': 'Weka anwani yako ya barua pepe', 'Subscribe Now': 'Jisajili Sasa', 'Thank you for subscribing!': 'Asante kwa kujisajili!',
-  'You have successfully subscribed to our newsletter.': 'Umejisajili kikamilifu kwa jarida letu.', 'Unsubscribe': 'Jiondoe', 'You have unsubscribed from our newsletter.': 'Umejiondoa kwenye jarida letu.', 'Privacy Policy': 'Sera ya Faragha', 'Terms of Service': 'Masharti ya Huduma', 'Cookie Policy': 'Sera ya Vidakuzi',
+  'You have successfully subscribed to our newsletter.': 'Umejisajili kikamilifu kwa jarida letu.', 'Unsubscribe': 'Jiondoe', 'You have unsubscribed from our newsletter.': 'Umejiondoa kwenye jarida letu.', 
+  'Privacy Policy': 'Sera ya Faragha', 'Terms of Service': 'Masharti ya Huduma', 'Cookie Policy': 'Sera ya Vidakuzi',
   'All rights reserved.': 'Haki zote zimehifadhiwa.', '© 2024 PPRA.': '© 2024 PPRA.', 'Designed by PPRA IT Team.': 'Imeundwa na Timu ya IT ya PPRA.',
   'Developed by PPRA IT Team.': 'Imeendelezwa na Timu ya IT ya PPRA.', 'Powered by PPRA IT Team.': 'Inasaidiwa na Timu ya IT ya PPRA.',
   'Version 1.0.0': 'Toleo 1.0.0', 'Last updated: June 2024': 'Imesasishwa mwisho: Juni 2024',
-  
+  'Welcome Back': 'Karibu Tena', 'Sign in to your account': 'Ingia kwenye akaunti yako', 'Forgot your password?': 'Umesahau nenosiri lako?', 
+  'Reset Password': 'Weka Upya Nenosiri', 'Enter your email to reset your password': 'Weka barua pepe yako ili kuweka upya nenosiri lako', 
+  'Send Reset Link': 'Tuma Kiungo cha Urejeshaji', 'Check your email for the reset link.': 'Angalia barua pepe yako kwa kiungo cha urejeshaji', 
+  'Back to Login': 'Rudi kwenye Kuingia', 'Password Reset Successful': 'Urejeshaji wa Nenosiri Umefanikiwa', 'Your password has been reset successfully.': 'Nenosiri lako limewekwa upya kikamilifu.', 
+  'You can now sign in with your new password.': 'Sasa unaweza kuingia kwa kutumia nenosiri lako jipya.', 'Return to Login': 'Rudi kwenye Kuingia',
 };
 
 const SW_TO_EN = Object.fromEntries(Object.entries(EN_TO_SW).map(([en, sw]) => [sw, en]));
@@ -173,7 +180,9 @@ export class LanguageService {
 
   setLanguage(language: AppLanguage): void {
     this.language.set(language);
-    try { localStorage.setItem('ppra.language', language); } catch { /* storage may be unavailable */ }
+    try { localStorage.setItem('ppra.language', language); } catch { 
+      
+     }
     if (typeof document !== 'undefined') document.documentElement.lang = language;
   }
 
